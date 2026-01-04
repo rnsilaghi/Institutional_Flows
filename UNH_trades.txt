@@ -5,6 +5,11 @@ MANAGER: Blue Fin Capital, Inc.
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-09-30 | 2025-11-21 | SELL | 5751030 | 8701497 | 5751030 | -2950467 | value_k
 
+MANAGER: CANTOR FITZGERALD, L. P.
+---------------------------------
+quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
+2025-09-30 | 2025-11-14 | HOLD | 130368015 | 130368015 | 130368015 | 0 | value_k
+
 MANAGER: DANSKE BANK A/S
 ------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
@@ -28,24 +33,28 @@ MANAGER: Evelyn Partners Asset Management Ltd
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-03-31 | 2025-12-08 | SELL | 1826316 | 2388671 | 1826316 | -562355 | value_k
 2025-06-30 | 2025-11-25 | SELL | 48667 | 1826316 | 48667 | -1777649 | value_k
+2025-09-30 | 2025-11-14 | BUY | 72513 | 48667 | 72513 | 23846 | value_k
 
 MANAGER: Evelyn Partners Investment Management  Ltd
 ---------------------------------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-03-31 | 2025-12-08 | BUY | 2293501 | 1742182 | 2293501 | 551319 | value_k
 2025-06-30 | 2025-11-25 | SELL | 1254743 | 2293501 | 1254743 | -1038758 | value_k
+2025-09-30 | 2025-11-14 | SELL | 1168840 | 1254743 | 1168840 | -85903 | value_k
 
 MANAGER: Evelyn Partners Investment Management LLP
 --------------------------------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-03-31 | 2025-12-08 | BUY | 99719905 | 91393218 | 99719905 | 8326687 | value_k
 2025-06-30 | 2025-11-25 | SELL | 56485288 | 99719905 | 56485288 | -43234617 | value_k
+2025-09-30 | 2025-11-14 | BUY | 57247976 | 56485288 | 57247976 | 762688 | value_k
 
 MANAGER: Evelyn Partners Investment Management Services Ltd
 -----------------------------------------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-03-31 | 2025-12-08 | BUY | 8476894 | 7111886 | 8476894 | 1365008 | value_k
 2025-06-30 | 2025-11-25 | SELL | 1722698 | 8476894 | 1722698 | -6754196 | value_k
+2025-09-30 | 2025-11-14 | BUY | 1870145 | 1722698 | 1870145 | 147447 | value_k
 
 MANAGER: Finivi Inc.
 --------------------
@@ -69,6 +78,11 @@ MANAGER: Fulcrum Asset Management LLP
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-09-30 | 2025-11-24 | SELL | 2914677 | 4080256 | 2914677 | -1165579 | value_k
 2025-09-30 | 2025-11-18 | SELL | 1168150 | 2914677 | 1168150 | -1746527 | value_k
+
+MANAGER: Keystone Financial Group
+---------------------------------
+quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
+2025-09-30 | 2025-11-14 | SELL | 500794 | 587555 | 500794 | -86761 | value_k
 
 MANAGER: Liontrust Investment Partners LLP
 ------------------------------------------
@@ -122,36 +136,6 @@ quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 MANAGER: Swiss Life Asset Management Ltd
 ----------------------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
-2015-06-30 | 2025-12-29 | SELL | 9432918 | 10780123 | 9432918 | -1347205 | value_k
-2015-09-30 | 2025-12-29 | BUY | 9867579 | 9432918 | 9867579 | 434661 | value_k
-2015-12-31 | 2025-12-29 | SELL | 8605013 | 9867579 | 8605013 | -1262566 | value_k
-2016-03-31 | 2025-12-29 | BUY | 10306071 | 8605013 | 10306071 | 1701058 | value_k
-2016-06-30 | 2025-12-29 | BUY | 13202869 | 10306071 | 13202869 | 2896798 | value_k
-2016-09-30 | 2025-12-29 | BUY | 17038912 | 13202869 | 17038912 | 3836043 | value_k
-2016-12-31 | 2025-12-29 | BUY | 22080021 | 17038912 | 22080021 | 5041109 | value_k
-2017-03-31 | 2025-12-29 | SELL | 21729272 | 22080021 | 21729272 | -350749 | value_k
-2017-06-30 | 2025-12-29 | BUY | 26428662 | 21729272 | 26428662 | 4699390 | value_k
-2017-09-30 | 2025-12-29 | BUY | 28191096 | 26428662 | 28191096 | 1762434 | value_k
-2017-12-31 | 2025-12-29 | BUY | 32675941 | 28191096 | 32675941 | 4484845 | value_k
-2018-03-31 | 2025-12-29 | BUY | 34425324 | 32675941 | 34425324 | 1749383 | value_k
-2018-06-30 | 2025-12-29 | BUY | 39203432 | 34425324 | 39203432 | 4778108 | value_k
-2018-09-30 | 2025-12-29 | BUY | 41200232 | 39203432 | 41200232 | 1996800 | value_k
-2018-12-31 | 2025-12-29 | SELL | 6228 | 41200232 | 6228 | -41194004 | value_k
-2019-03-31 | 2025-12-29 | SELL | 6182 | 6228 | 6182 | -46 | value_k
-2019-06-30 | 2025-12-29 | BUY | 9760 | 6182 | 9760 | 3578 | value_k
-2019-09-30 | 2025-12-29 | BUY | 105502650 | 9760 | 105502650 | 105492890 | value_k
-2019-12-31 | 2025-12-29 | SELL | 337598 | 105502650 | 337598 | -105165052 | value_k
-2020-03-31 | 2025-12-29 | BUY | 384003 | 337598 | 384003 | 46405 | value_k
-2020-06-30 | 2025-12-29 | BUY | 538844 | 384003 | 538844 | 154841 | value_k
-2020-09-30 | 2025-12-29 | SELL | 337335 | 538844 | 337335 | -201509 | value_k
-2020-12-31 | 2025-12-29 | BUY | 391710 | 337335 | 391710 | 54375 | value_k
-2021-03-31 | 2025-12-29 | BUY | 1190252 | 391710 | 1190252 | 798542 | value_k
-2021-06-30 | 2025-12-29 | SELL | 1097077 | 1190252 | 1097077 | -93175 | value_k
-2021-09-30 | 2025-12-29 | BUY | 2044788 | 1097077 | 2044788 | 947711 | value_k
-2021-12-31 | 2025-12-29 | BUY | 76698976 | 2044788 | 76698976 | 74654188 | value_k
-2022-03-31 | 2025-12-09 | SELL | 75009413 | 76698976 | 75009413 | -1689563 | value_k
-2022-06-30 | 2025-12-09 | SELL | 55876096 | 75009413 | 55876096 | -19133317 | value_k
-2022-09-30 | 2025-12-09 | SELL | 10760729 | 55876096 | 10760729 | -45115367 | value_k
 2022-12-31 | 2025-12-09 | BUY | 58534145 | 10760729 | 58534145 | 47773416 | value_k
 2023-03-31 | 2025-12-09 | SELL | 16104821 | 58534145 | 16104821 | -42429324 | value_k
 2023-06-30 | 2025-12-09 | BUY | 19209430 | 16104821 | 19209430 | 3104609 | value_k
@@ -165,8 +149,14 @@ quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-06-30 | 2025-12-02 | BUY | 76647909 | 15873291 | 76647909 | 60774618 | value_k
 2025-09-30 | 2025-12-02 | SELL | 10115218 | 76647909 | 10115218 | -66532691 | value_k
 
+MANAGER: TUDOR INVESTMENT CORP ET AL
+------------------------------------
+quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
+2025-09-30 | 2025-11-14 | HOLD | 902614 | 902614 | 902614 | 0 | value_k
+
 MANAGER: Triumph Capital Management
 -----------------------------------
 quarter | filed_date | action | value_k | prev_qty | qty | delta | qty_source
 2025-09-30 | 2025-12-23 | BUY | 2087386 | 1324336 | 2087386 | 763050 | value_k
+2025-09-30 | 2025-11-14 | SELL | 36947 | 2087386 | 36947 | -2050439 | value_k
 

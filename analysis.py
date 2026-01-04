@@ -2,17 +2,18 @@ import sqlite3
 import pandas as pd
 from db import DB_PATH
 
+N_DELTAS = 12
 
-def infer_trades_per_manager():
+
+def infer_trades_per_manager(n_deltas: int = N_DELTAS):
     """
-    Returns per-manager inferred trades using shares when available,
-    otherwise value_k (USD thousands). Drops the first observation per
-    manager+ticker (no change info).
-    filed_at is cleaned to filed_date (YYYY-MM-DD).
+    - Cap to most recent (n_deltas + 1) quarters per manager+ticker
+    - Drop first (baseline) by requiring prev_qty_proxy IS NOT NULL
     """
+    keep_obs = n_deltas + 1
     conn = sqlite3.connect(DB_PATH)
 
-    query = """
+    query = f"""
     WITH base AS (
         SELECT
             manager,
@@ -32,28 +33,32 @@ def infer_trades_per_manager():
         FROM holdings
         WHERE value_k IS NOT NULL
     ),
+    ranked AS (
+        SELECT
+            *,
+            ROW_NUMBER() OVER (
+                PARTITION BY manager, ticker
+                ORDER BY date(quarter) DESC
+            ) AS rn
+        FROM base
+    ),
+    capped AS (
+        SELECT * FROM ranked WHERE rn <= {keep_obs}
+    ),
     ordered AS (
         SELECT
-            manager,
-            ticker,
-            quarter,
-            filed_date,
-            shares,
-            value_k,
-            qty_proxy,
-            qty_source,
+            *,
             LAG(qty_proxy) OVER (
                 PARTITION BY manager, ticker
-                ORDER BY quarter
+                ORDER BY date(quarter)
             ) AS prev_qty_proxy
-        FROM base
+        FROM capped
     )
     SELECT
         manager,
         ticker,
         quarter,
         filed_date,
-        shares,
         value_k,
         prev_qty_proxy,
         qty_proxy,
@@ -65,8 +70,8 @@ def infer_trades_per_manager():
         END AS action,
         qty_source
     FROM ordered
-    WHERE prev_qty_proxy IS NOT NULL   -- ✅ removes the “first” per manager+ticker
-    ORDER BY ticker, manager, quarter
+    WHERE prev_qty_proxy IS NOT NULL
+    ORDER BY ticker, manager, date(quarter)
     """
 
     df = pd.read_sql(query, conn)
