@@ -8,7 +8,7 @@ def _quarter_end(dt: pd.Timestamp) -> pd.Timestamp:
     return dt.to_period("Q").end_time.normalize()
 
 
-def _build_quarter_closes_from_daily(px_daily: pd.DataFrame) -> pd.DataFrame:
+def _build_quarter_closes(px_daily: pd.DataFrame) -> pd.DataFrame:
     """
     px_daily: columns = ["date", "close"]
     Returns: ["quarter", "close_q"] where quarter is calendar quarter-end (YYYY-MM-DD)
@@ -17,11 +17,8 @@ def _build_quarter_closes_from_daily(px_daily: pd.DataFrame) -> pd.DataFrame:
     px = px_daily.copy()
     px["date"] = pd.to_datetime(px["date"])
     px = px.sort_values("date")
-
-    # Determine which calendar quarter each trading day belongs to
     px["quarter"] = px["date"].dt.to_period("Q").dt.end_time.dt.normalize()
-
-    # Last trading day in each quarter => quarter close
+    # Last trading day in each quarter is the quarter close
     q = px.groupby("quarter", as_index=False).last()[["quarter", "close"]]
     q = q.rename(columns={"close": "close_q"})
     q["quarter"] = q["quarter"].dt.strftime("%Y-%m-%d")
@@ -30,7 +27,6 @@ def _build_quarter_closes_from_daily(px_daily: pd.DataFrame) -> pd.DataFrame:
 
 def _get_net_exposure_all_quarters(tickers: List[str]) -> pd.DataFrame:
     """
-    IMPORTANT: This is for factor testing, not your pretty per-manager txt.
     We compute net exposure change per ticker+quarter across ALL quarters in holdings,
     then later we filter to quarters that have prices.
     """
@@ -86,8 +82,7 @@ def _get_net_exposure_all_quarters(tickers: List[str]) -> pd.DataFrame:
 
 def compute_exposure_vs_next_q_return(tickers: List[str]) -> pd.DataFrame:
     """
-    Returns a DataFrame with:
-      ticker, quarter, net_exposure_change, close_q, close_next_q, price_return_next_q
+    Returns a DataFrame with ticker, quarter, net_exposure_change, close_q, close_next_q, and price_return_next_q
     Only for quarters where we have price data for both this quarter and next quarter.
     """
     expo = _get_net_exposure_all_quarters(tickers)
@@ -100,12 +95,11 @@ def compute_exposure_vs_next_q_return(tickers: List[str]) -> pd.DataFrame:
         if not px_rows:
             continue
 
-        # prices_eod might contain daily data (as your DB shows)
         px_daily = pd.DataFrame(px_rows, columns=["date", "close"])
         if px_daily.empty:
             continue
 
-        qpx = _build_quarter_closes_from_daily(px_daily)
+        qpx = _build_quarter_closes(px_daily)
         qpx["ticker"] = t
 
         # next-quarter return
@@ -118,8 +112,7 @@ def compute_exposure_vs_next_q_return(tickers: List[str]) -> pd.DataFrame:
             on=["ticker", "quarter"],
             how="inner"
         )
-
-        # Need next-quarter close to compute return
+        
         m = m.dropna(subset=["close_next_q"]).reset_index(drop=True)
         frames.append(m)
 

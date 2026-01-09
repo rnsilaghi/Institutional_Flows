@@ -54,6 +54,5 @@ def run_stats(df: pd.DataFrame):
     "n_obs": n,
     "p_value": float(p_binom)
 }
-
-
+    
     return results

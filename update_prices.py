@@ -62,8 +62,7 @@ def run_update_prices(
     max_quarters: int = MAX_QUARTERS
 ) -> int:
     """
-    Populates prices_eod for the most recent `max_quarters` quarter dates per ticker.
-    Returns total API calls used.
+    Populates prices_eod for the most recent max_quarters quarter dates per ticker.
     """
     create_db()
     tickers = tickers or TICKERS

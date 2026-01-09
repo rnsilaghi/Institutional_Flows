@@ -9,9 +9,8 @@ from stats_tests import run_stats
 from update_prices import run_update_prices
 from plots import save_all_plots
 
+#Edit the following 4 for customizability
 TICKERS = ["ORCL", "UNH", "FDS"]
-
-# knobs (edit here, not in main.py)
 RUN_SEC_INGEST = True
 YEARS_13F_WINDOW = 5
 PRICE_QUARTERS_PER_TICKER = 28
@@ -131,7 +130,7 @@ def sec_ingest():
             years=YEARS_13F_WINDOW
         )
 
-        rows = extract_holdings(filings, ticker)
+        rows = extract_holdings(filings, ticker)  #this helps to structure data for SQL
         inserted = insert_holdings(rows)
 
         filed_ats = [f.get("filedAt") for f in filings if f.get("filedAt")]
@@ -145,18 +144,18 @@ def sec_ingest():
 def run_pipeline():
     create_db()
 
-    # 1) SEC -> holdings
+    # 1) Create holdings database
     sec_ingest()
 
-    # 2) prices
+    # 2) Create prices database
     run_update_prices(tickers=TICKERS, max_quarters=PRICE_QUARTERS_PER_TICKER)
 
-    # 3) per-manager summaries
+    # 3) Write manager summaries
     trades = infer_trades_per_manager()
     for t in TICKERS:
         write_trades_txt_by_ticker(trades, t)
 
-    # 4) factor dataset
+    # 4) Create larger dataset across managers
     df = compute_exposure_vs_next_q_return(TICKERS)
     print("Merged rows:", len(df))
 
@@ -164,11 +163,12 @@ def run_pipeline():
     df.to_csv(csv_path, index=False)
     print(f"Saved {csv_path}")
 
+    # 5) Write exposure summary
     write_exposure_summary_txt(df)
 
-    # 5) stats
+    # 6) Run stats tests
     stats = run_stats(df)
     write_stats_txt(stats)
 
-    # 6) plots
+    # 7) Create plots
     save_all_plots(df, BASE_DIR)
