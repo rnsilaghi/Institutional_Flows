@@ -15,21 +15,21 @@ def run_stats(df: pd.DataFrame):
 
     results = {}
 
-    # -------- Correlation (Pearson) --------
+    # Correlation (Pearson)
     pearson_r, pearson_p = stats.pearsonr(x, y)
     results["pearson"] = {
         "r": pearson_r,
         "p_value": pearson_p
     }
 
-    # -------- Correlation (Spearman) --------
+    # Correlation (Spearman) 
     spearman_r, spearman_p = stats.spearmanr(x, y)
     results["spearman"] = {
         "r": spearman_r,
         "p_value": spearman_p
     }
 
-    # -------- Regression --------
+    # Regression 
     X = sm.add_constant(x)
     model = sm.OLS(y, X).fit()
     results["regression"] = {
@@ -40,7 +40,7 @@ def run_stats(df: pd.DataFrame):
         "n_obs": int(model.nobs)
     }
 
-    # -------- Directional accuracy --------
+    # Directional accuracy
     signs_match = np.sign(x) == np.sign(y)
     hits = np.sum(signs_match)
     n = len(signs_match)

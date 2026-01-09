@@ -6,13 +6,7 @@ N_DELTAS = 12
 
 
 def infer_trades_per_manager(n_deltas: int = N_DELTAS):
-    """
-    Uses value_k only (shares removed).
-    Option A:
-      - Keep most recent (n_deltas + 1) quarters per manager+ticker
-      - Drop first baseline to get n_deltas deltas.
-    """
-    keep_obs = n_deltas + 1
+    keep_obs = n_deltas + 1 #because we need to discard the first quarter
     conn = sqlite3.connect(DB_PATH)
 
     query = f"""

@@ -31,11 +31,6 @@ def get_13f_filings_for_ticker_backfill(
     end_checkpoint_filed_at: Optional[str] = None,
     years: int = 5,
 ) -> List[Dict]:
-    """
-    BACKFILL MODE:
-    Pull filings OLDER than end_checkpoint_filed_at, but within last `years` years.
-    Query is date-only for compatibility, then strict filter filedAt < checkpoint.
-    """
     if not SEC_API_KEY or SEC_API_KEY.startswith("YOUR_"):
         raise ValueError("SEC_API_KEY missing or invalid")
 
@@ -67,7 +62,7 @@ def get_13f_filings_for_ticker_backfill(
     r.raise_for_status()
     filings = r.json().get("filings", [])
 
-    # Strictly older than checkpoint so we don't re-pull boundary
+    # Only older than checkpoint so we don't re-pull data
     if checkpoint_dt:
         filtered = []
         for f in filings:
@@ -80,10 +75,6 @@ def get_13f_filings_for_ticker_backfill(
 
 
 def extract_holdings(filings: List[Dict], ticker: str) -> List[Tuple]:
-    """
-    Returns rows ready for SQLite insertion:
-    (accession_no, manager, quarter, ticker, value_k, filed_date)
-    """
     rows = []
 
     for f in filings:
@@ -94,7 +85,7 @@ def extract_holdings(filings: List[Dict], ticker: str) -> List[Tuple]:
         if not manager or not quarter or not filed_at:
             continue
 
-        filed_date = str(filed_at)[:10]  # ✅ clean
+        filed_date = str(filed_at)[:10]
 
         accession_no = (
             f.get("accessionNo")

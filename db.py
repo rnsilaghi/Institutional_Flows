@@ -13,7 +13,7 @@ def create_db():
     conn = get_connection()
     cur = conn.cursor()
 
-    # ---------- Holdings (shares removed; filed_date stored clean) ----------
+    # Holdings Table
     cur.execute("""
     CREATE TABLE IF NOT EXISTS holdings (
         accession_no TEXT NOT NULL,
@@ -26,7 +26,7 @@ def create_db():
     )
     """)
 
-    # ---------- Backfill checkpoint ----------
+    # Backfill Table
     cur.execute("""
     CREATE TABLE IF NOT EXISTS ingest_checkpoint (
         ticker TEXT PRIMARY KEY,
@@ -34,7 +34,7 @@ def create_db():
     )
     """)
 
-    # ---------- Price cache ----------
+    # Price Table
     cur.execute("""
     CREATE TABLE IF NOT EXISTS prices_eod (
         ticker TEXT NOT NULL,
@@ -95,7 +95,6 @@ def set_backfill_checkpoint(ticker: str, last_filed_at: str):
 def upsert_prices_eod(rows):
     """
     rows: (ticker, date, close)
-    Safe to rerun.
     """
     if not rows:
         return 0

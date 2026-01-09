@@ -1,6 +1,6 @@
 import requests
-from datetime import datetime
-from typing import List
+from typing import List, Optional, Tuple
+
 from db import (
     create_db,
     upsert_prices_eod,
@@ -9,7 +9,7 @@ from db import (
 from api import STOCKDATA_API_KEY, STOCKDATA_BASE_URL
 
 TICKERS = ["ORCL", "UNH", "FDS"]
-MAX_QUARTERS = 28  # 7 years
+MAX_QUARTERS = 28
 
 
 def get_recent_quarters_for_ticker(ticker: str, limit: int) -> List[str]:
@@ -33,14 +33,15 @@ def get_recent_quarters_for_ticker(ticker: str, limit: int) -> List[str]:
     return rows
 
 
-def fetch_close_on_date(ticker: str, date_str: str):
+def fetch_close_on_date(ticker: str, date_str: str) -> Optional[Tuple[str, float]]:
     """
     Fetch EOD close for ticker on a specific date.
     API returns nearest previous trading day if market was closed.
+    Returns (price_date, close) or None.
     """
     url = f"{STOCKDATA_BASE_URL}/data/eod"
     params = {
-        "symbols": ticker,
+        "symbols": ticker.upper(),
         "date": date_str,
         "api_token": STOCKDATA_API_KEY,
     }
@@ -53,35 +54,42 @@ def fetch_close_on_date(ticker: str, date_str: str):
         return None
 
     bar = data[0]
-    return bar.get("date"), bar.get("close")
+    return str(bar.get("date"))[:10], float(bar.get("close"))
 
 
-def main():
+def run_update_prices(
+    tickers: List[str] = None,
+    max_quarters: int = MAX_QUARTERS
+) -> int:
+    """
+    Populates prices_eod for the most recent `max_quarters` quarter dates per ticker.
+    Returns total API calls used.
+    """
     create_db()
+    tickers = tickers or TICKERS
 
     total_calls = 0
 
-    for ticker in TICKERS:
-        quarters = get_recent_quarters_for_ticker(ticker, MAX_QUARTERS)
-
+    for ticker in tickers:
+        quarters = get_recent_quarters_for_ticker(ticker, max_quarters)
         print(f"{ticker}: fetching prices for {len(quarters)} quarter dates")
 
         rows = []
         for q in quarters:
             result = fetch_close_on_date(ticker, q)
             total_calls += 1
-
             if result is None:
                 continue
 
             price_date, close = result
-            rows.append((ticker, price_date[:10], float(close)))
+            rows.append((ticker.upper(), price_date, float(close)))
 
         changed = upsert_prices_eod(rows)
-        print(f"{ticker}: stored {changed} prices")
+        print(f"{ticker}: stored/updated {changed} prices")
 
     print(f"TOTAL API CALLS USED: {total_calls}")
+    return total_calls
 
 
 if __name__ == "__main__":
-    main()
+    run_update_prices()

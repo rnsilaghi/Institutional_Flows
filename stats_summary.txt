@@ -2,20 +2,20 @@
 
 Pearson correlation:
   r = 0.182
-  p-value = 0.1918
+  p-value = 0.2196
 
 Spearman rank correlation:
-  rho = 0.162
-  p-value = 0.2468
+  rho = 0.137
+  p-value = 0.3576
 
 Regression: return = alpha + beta * exposure
-  beta = 0.000000
-  t-stat = 1.32
-  p-value = 0.1918
-  R^2 = 0.0332
-  N = 53
+  beta = 0.0000000010
+  t-stat = 1.25
+  p-value = 0.2196
+  R^2 = 0.0333
+  N = 47
 
 Directional accuracy:
-  hit rate = 52.83%
-  hits = 28 / 53
-  binomial p-value = 0.3919
+  hit rate = 53.19%
+  hits = 25 / 47
+  binomial p-value = 0.3854

@@ -1,5 +1,15 @@
 === FDS (per-manager position changes; qty_proxy=value_k) ===
 
+MANAGER: Avior Wealth Management, LLC
+-------------------------------------
+quarter | filed_date | action | prev_qty | qty | delta
+2025-12-31 | 2026-01-06 | BUY | 317717 | 324432 | 6715
+
+MANAGER: BURKETT FINANCIAL SERVICES, LLC
+----------------------------------------
+quarter | filed_date | action | prev_qty | qty | delta
+2025-12-31 | 2026-01-05 | BUY | 1734 | 1762 | 28
+
 MANAGER: DANSKE BANK A/S
 ------------------------
 quarter | filed_date | action | prev_qty | qty | delta
@@ -16,6 +26,12 @@ MANAGER: ROYAL BANK OF CANADA
 quarter | filed_date | action | prev_qty | qty | delta
 2025-06-30 | 2025-11-21 | SELL | 12043000 | 6319000 | -5724000
 2025-09-30 | 2025-11-14 | SELL | 6319000 | 4015000 | -2304000
+
+MANAGER: Sanctuary Advisors, LLC
+--------------------------------
+quarter | filed_date | action | prev_qty | qty | delta
+2025-06-30 | 2026-01-06 | SELL | 7623369 | 7256805 | -366564
+2025-09-30 | 2026-01-06 | BUY | 7256805 | 7623369 | 366564
 
 MANAGER: Swiss Life Asset Management Ltd
 ----------------------------------------
